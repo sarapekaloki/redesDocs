@@ -120,8 +120,54 @@
               <li>Preferred DNS server: 10.22.1.2</li>
           </ul>
           Ahora podemos usar esta máquina para acceder a la consola gráfica de OPNsense
-          <h2 class="w3-text-blue-grey">Honeypot</h2>
-          <p>Se configura igual que el Debian, sin embargo no se le agrega el servidor</p>
+<h2 class="w3-text-blue-grey">Honeypot</h2>
+          <p> Para el honeypot del lado derecho tenemos una MV de Debian 11, configurada de manera igual a la otra instancia de Debian, pero con la ip 10.22.1.59, en la que correrán los siguientes servicios:</p>
+        <ul>
+            <li>
+                FTP Server:
+                <ul>
+                    <li>Instalar vsftpd: apt install vsftpd</li>
+                    <li>Editar el archivo de configuración: nano /etc/vsftpd.conf</li>
+                    <li> Config:
+                        <pre>
+                            <code>
+listen=YES
+anonymous_enable=YES
+local_enable=NO
+write_enable=NO
+                            </code>
+                        </pre>
+                        Estas configuraciones permitirán que los usuarios se conecten de forma anónima y deshabilitarán las operaciones de escritura.
+                    </li>
+                    <li>Reiniciar el servicio de ftp: systemctl restart vsftpd</li>
+                    <li>Monitorear los registros: sudo tail -f /var/log/vsftpd.log</li>
+                </ul>
+            </li>
+            <li>
+                SMTP Server:
+            </li>
+            <ul>
+                <li>Instalar Postfix: apt install postfix</li>
+                    <li>Modificar el archivo de configuracion: nano /etc/postfix/main.cf</li>
+                    <li> Config:
+                        <pre>
+                            <code>
+# Cambiar el listening address a todas las interfaces
+inet_interfaces = all
+# Deshabilitamos recibir mail externo
+mydestination =
+# Seshabilitamos mandar correo
+mynetworks = 127.0.0.0/8
+
+                            </code>
+                        </pre>
+                        Estas configuraciones permitirán que nuestro servidor SMTP actúe como honeypot, ya que va a escuchar por todas las interfaces, y no va a aceptar correos externos.
+                    </li>
+                    <li>Reiniciar el servicio de Postfix: systemctl restart postfix </li>
+                <li>Ahora podemos monitorear los intentos de conexión en el archivo /var/log/mail.log</li>
+
+            </ul>
+        </ul>
       </div>
     </div>
 
@@ -268,16 +314,27 @@
       <div class="w3-threethird w3-container">
         <h1 class="w3-text-teal">Honeypots</h1>
         <p>
-            Para el honeypot del lado derecho tenemos una MV de Debian 11, configurada con la ip 10.21.1.58, en la que correrán los siguientes servicios:
+            Para el honeypot del lado derecho tenemos una MV de Debian 11, configurada con la ip 10.22.1.59, en la que correrán los siguientes servicios:
         </p>
           <ul>
               <li>
-                  SSH honeypot: Se cambió el puerto para SSH del 22(por defecto) al 69, y se configuró un servicio que escucha en el puerto 22 para que cuando un atacante se intente conectar por SSH al honeypot usando el puerto por defecto (22), se va a registrar su intento, y guardar sus credenciales de ingreso. (nombre de usuario y contraseña utilizados).
-                  Estos datos serán visibles en el archivo /var/log/ssh-honeypot.log.
+                 FTP Server:
               </li>
+              <ul>
+                  <li>Del lado del atacante, vamos a utilizar nuestra instancia de Debian para simular a un malhechor dentro de nuestra red, quien va a intentar conectarse usando "ftp 10.22.1.59 e ingresará una contraseña."</li>
+                  <li>Podrá utilizar cualquier nombre de usuario y contraseña, ya que el servidor honeypot no autentica las credenciales.</li>
+                  <li>Una vez conectado, puede utilizar comandos FTP como ls, get, put, etc., para interactuar con el servidor honeypot FTP.</li>
+
+              </ul>
               <li>
-                  TBD service
+                  SMTP Server:
               </li>
+              <ul>
+                  <li>Del lado del atacante, vamos a utilizar nuestra instancia de Debian para simular a un malhechor dentro de nuestra red, quien va a intentar conectarse usando "telnet 10.22.1.59"</li>
+                  <li>Esto abrirá una conexión Telnet al servidor honeypot SMTP en la dirección IP 10.22.1.59 en el puerto 25 (puerto SMTP predeterminado).</li>
+
+
+              </ul>
           </ul>
         </div>
     </div>
