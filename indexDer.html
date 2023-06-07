@@ -1,287 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<title>SP documentación</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
-.w3-sidebar {
-  z-index: 3;
-  width: 250px;
-  top: 43px;
-  bottom: 0;
-  height: inherit;
-}
-</style>
-</head>
-<body>
+  <head>
+    <title>SP documentación - der</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+      html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
+      .w3-sidebar {
+        z-index: 3;
+        width: 250px;
+        top: 43px;
+        bottom: 0;
+        height: inherit;
+      }
+    </style>
+  </head>
+  <body>
 
-<!-- Navbar -->
-<div class="w3-top">
-  <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
-    <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
-    <a href="#" class="w3-bar-item w3-button w3-theme-l1">Seguridad Perimetral</a>
-  </div>
-</div>
-
-<!-- Sidebar -->
-<nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar">
-  <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
-    <i class="fa fa-remove"></i>
-  </a>
-  <h4 class="w3-bar-item"><b>Tabla de contenidos</b></h4>
-  <p class="w3-bar-item">» Máquinas virtuales y configuraciones</p>
-  <p class="w3-bar-item">» Reglas inbound and outbound DO</p>
-  <p class="w3-bar-item">» Reglas LAN pfSense</p>
-  <p class="w3-bar-item">» Reglas de publicación</p>
-  <p class="w3-bar-item">» Reglas WAN pfSense</p>
-  <p class="w3-bar-item">» Honeypots</p>
-
-</nav>
-
-<!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
-
-<!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
-<div class="w3-main" style="margin-left:250px">
-
-  <div class="w3-row w3-padding-64">
-    <div class="w3-threethird w3-container">
-      <h1 class="w3-text-teal">Máquinas virtuales y configuraciones</h1>
-        <p>
-            En la siguiente sección se dará una breve descripción sobre como se configuro cada una de las maquinas virtuales dentro de la red izquierda.
-        </p>
-        <h2 class="w3-text-blue-grey">Firewall</h2>
-        <p>
-            Se siguen las instrucciones de instalación en vbox que se vieron en la práctica.
-            Configuración de Network en vbox:
-            <ul>
-                <li>Adaptador 1 WAN: Se selecciona la opción de bridged adapter para poder seleccionar la VLAN, se selecciona la VLAN 101 como se muestra en la documentación dada. El tipo de adaptador es el de 1000 MT Server como en la práctica</li>
-                <li>Adaptador 2 LAN: Primero se habilita el uso de este adaptador. Y se hace la misma configuración que en el adaptador 1 pero ahora se selecciona la VLAN40</li>
-            </ul>
-            Una vez iniciada y configurada la máquina virtual como en las instrucciones de la práctica se procede la dirección IP correspondiente a la interfaz LAN, donde se usa la IP 10.21.1.2/24. No se definen IPv6 ni gateways, y no se activa DHCP. Ademas, se selecciona http como protocolo de acceso para la consola web.
-        </p>
-        <p>Una vez que se configura la máquina de Windows7, podemos continuar con la configuración inicial que se realiza en la consola web de pfSense:</p>
-        <ul>
-            <li>Ingresar en el browser a 10.21.1.2</li>
-            <li>Iniciamos sesión y cambiamos la contraseña</li>
-            <li>Comenzamos por agregar una dirección pública, en este caso es 158.122.90.2/22</li>
-            <li>Agregamos el gateway, en este caso es 158.122.88.4</li>
-            <li>Dentro de System/General Setup cambiamos el hostname</li>
-            <li>Ahi mismo agregamos los siguientes tres DNS servers 4.2.2.2, 9.9.9.9, 1.1.1.1</li>
-            <li>Localization/Timezone: America/Tijuana</li>
-            <li>Procedemos a borrar todas las reglas que aparecen por default</li>
-        </ul>
-        <p>El firewall esta listo para agregarle reglas especificadas en el documento del proyecto final</p>
-        <h2 class="w3-text-blue-grey">Debian</h2>
-        <p>
-            Para esta máquina primero hacemos las instrucciones dadas en la práctica no.2, donde se hace la configuración inicial y las instalaciones especificadas hasta la utilería net-tools. A partir de esto, se realiza las siguientes configuraciones para nuestro Debian sea parte de nuestra red izquierda y utilice al firewall como gateway.
-            <ul>
-                <li>Adaptador de red: Se cambia de NAT a bridged adapter, y se selecciona en adapter el correspondiente a la VLAN101 </li>
-                <li>Archivo /etc/network/interfaces: Se ingresa a la máquina virtual al archivo de /etc/network/interfaces, la ip de esta máquina será 10.21.1.60. Se deja la siguiente configuración</li>
-                <ul>
-                    <li>source /etc/network/interfaces.d/*</li>
-                    <li>auto lo enp0s3</li>
-                    <li>iface lo inet loopback</li>
-                    <li> allow-hotplug enp0s3</li>
-                    <li>iface enp0s3 inet static</li>
-                    <li> address 10.21.1.60/24</li>
-                    <li>gateway 10.21.1.2</li>
-                    <li>dns-nameservers 10.21.1.2</li>
-                </ul>
-            </ul>
-            <h4 class="w3-text-dark-gray">Servidor nginx</h4>
-            <p>Para dar de alta nuestra máquina para el hosteo de un servidor de nginx se siguieron los siguientes pasos (como descritos en la práctica no. 9)</p>
-            <ul>
-                <li>Instalar bind9 -> apt install bind9 dnsutils</li>
-                <li>Instalar nginx -> apt-get install -y nginx</li>
-                <li>Se genera el respaldo del archivo nginx.conf</li>
-                <li>Se prueba que ahora en el browser al buscar http://10.21.1.60 se muestre el index inicial de nginx </li>
-                <li>Para modificar los contenidos del index, subiremos los contenidos de esta página a un repositorio de github, clonaremos el repositorio en nuestro debian y cambiaremos los contenidos del index.html</li>
-            </ul>
-        </p>
-        <h2 class="w3-text-blue-grey">Windows7</h2>
-        <p>Hacemos las instalaciones iniciales mencionadas en la práctica no.2, pero en el adaptardor de red se selecciona el VLAN101, para hacer que nuestra máquina use como gateway el firewall hicimos las siguientes configuraciones dentro de las propiedades de Internet Protocol Version 4:</p>
-        <ul>
-            <li>Se selecciona Use the following IP address</li>
-            <li>IP address: 10.21.1.61</li>
-            <li>Subnet mask: 255.255.255.0</li>
-            <li>Default gateway: 10.21.1.2</li>
-            <li>Seleccionar Use the following DNS server addresses</li>
-            <li>Preferred DNS server: 10.21.1.2</li>
-        </ul>
-        Ahora podemos usar esta máquina para acceder a la consola gráfica de pfsense
-        <h2 class="w3-text-blue-grey">Honeypot</h2>
-        <p>Se configura igual que el Debian, sin embargo no se le agrega el servidor</p>
+  <!-- Navbar -->
+  <div class="w3-top">
+    <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
+      <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+      <a href="#" class="w3-bar-item w3-button w3-theme-l1">Seguridad Perimetral</a>
     </div>
   </div>
 
-  <div class="w3-row w3-padding-64">
-    <div class="w3-threethird w3-container">
-      <h1 class="w3-text-teal">Reglas inbound and outbound DO</h1>
-      <p>Un firewall en Digital Ocean puede ser creado desde https://www.digitalocean.com/, una vez loggeado con la cuenta donde esta el droplet a utilizar
-        se le da clic al botón verde de Create y después a Cloud Firewalls, ahi dentro podemos configurar el nombre, inbound rules, outbound rules y a los droplets que se le aplicarán las reglas.
-      </p>
-      <h2 class="w3-text-blue-grey">Inbound</h2>
-      <p>
-        Las reglas inbound o de entrada se refiere a aquellas que controlan y determinan que tipo de tráfico se permite ingresar a la red desde fuentes externas.
-        La instrucción es crear reglas para los servicios privados y públicos del equipo de Servicios Internet.
-      </p>
-      <h4 class="w3-text-dark-gray">Servicios públicos</h4>
-      <p>Para los servicios públicos se configuran las siguientes reglas para los servicios DO del equipo de servicios de internet, las reglas de DO, tienen 4 configuraciones, tipo, protocolo, rango de puertos y source IP </p>
-      <ul>
-        <li>DNS Primario: Type-DNS UDP, Protocol-UDP, Port Range-53, Sources-158.122.64.9 </li>
-        <li>DNS: Type-DNS UDP, Protocol-UDP, Port Range-53, Sources-134.209.77.206 </li>
-        <li>FTP: Type-Custom, Protocol-TCP, Port Range-20-21, Sources-134.209.77.206</li>
-        <li>Correo: Type-Custom, Protocol-TCP, Port Range-25, Sources-134.209.77.206</li>
-        <li>Web Server HTTP: Type-HTTP, Protocol-TCP, Port Range-80, Sources-134.209.77.206</li>
-        <li>Web Server HTTPS: Type-HTTPS, Protocol-TCP, Port Range-443, Sources-134.209.77.206</li>
-        <li>SSH: Type-SSH, Protocol-TCP, Port Range-22, Sources-All </li>
-      </ul>
-      <h4 class="w3-text-red">Pruebas</h4>
-      <p> TBD</p>
-      <h2 class="w3-text-blue-grey">Outbound</h2>
-      <p>Las reglas outbound o de salida son encargadas de controlar el tráfico de red saliente desde un dispositivo de la red (en este caso un droplet) hacia destinos externos.
-        Las siguientes reglas fueron configuradas en el firewall de DigitalOcean:</p>
-        <ul>
-            <li>ICMP: Type-ICMP, Protocol-ICMP, Port Range-, Sources-All </li>
-            <li>HTTP: Type-HTTP, Protocol-TCP, Port Range-80, Sources-All </li>
-            <li>HTTPS: Type-HTTPS, Protocol-TCP, Port Range-443, Sources-All  </li>
-            <li>DNS: Type-DNS UDP, Protocol-UDP, Port Range-53, Sources-All  </li>
-            <li>NTP: Type-Custom, Protocol-UDP, Port Range-123, Sources-All  </li>
-        </ul>
-        <h4 class="w3-text-red">Pruebas</h4>
-        <p>Se hicieron las siguientes pruebas desde dentro del droplet para comprobar el funcionamiento de las reglas</p>
-        <ul>
-            <li>ICMP: ping hacia alguna ip conocida</li>
-            <li>HTTP: curl hacia un sitio que use HTTP</li>
-            <li>HTTPS: curl hacia un sitio que use HTTPS</li>
-            <li>DNS: dig a google.com</li>
-            <li>NTP: ntpq -p</li>
-        </ul>
-      </div>
-  </div>
-  <div class="w3-row w3-padding-64">
-    <div class="w3-threethird w3-container">
-      <h1 class="w3-text-teal">Reglas LAN pfSense</h1>
-      <p>
-        Las reglas de LAN hacen uso de 3 diferentes aliases de puertos que se mencionaran a continuación
-      </p>
-      <h2 class="w3-text-blue-grey">Aliases</h2>
-      <ul>
-        <li>Internet tcp: Los puertos declarados en este son los correspondientes a HTTP y HTTPS osea 80 y 443</li>
-        <li>Internet udp: Los puertos declarados en este son los correspondientes a DCP y NTP osea 53 y 123</li>
-        <li>Monitoreo: Los puertos son aquellos que necesita el equipo de monitoreo para SNMP (121 Y 122) y el de Zabbix Agent (10050) </li>
-      </ul>
-      <h2 class="w3-text-blue-grey">Rules</h2>
-      <p>Las reglas creadas estan en el siguiente orden:</p>
-      <ul>
-        <li>Protocolo: IPv4 ICMP - Source: * - Port: * - Destination: * - Port: * - Gateway: *</li>
-        <li>Protocolo: IPv4 TCP - Source: LAN net - Port: * - Destination: * - Port: Internet tcp - Gateway: *</li>
-        <li>Protocolo: IPv4 UDP - Source: LAN net - Port: * - Destination: * - Port: Internet udp - Gateway: *</li>
-        <li>Protocolo: IPv4 UDP - Source: * - Port: * - Destination: * - Port: Monitoreo - Gateway: *</li>
-      </ul>
-      <h4 class="w3-text-red">Pruebas</h4>
-      <p>Se hicieron las siguientes pruebas dentro de la máquina de windows7</p>
-      <ul>
-        <li>Hacer búsquedas en google chrome</li>
-        <li>Hacer pings a otras máquinas dentro de la red y a dns como google.com</li>
-        <li>Correr el comando de ntpq -p</li>
-      </ul>
-      </div>
-  </div>
-  <div class="w3-row w3-padding-64">
-    <div class="w3-threethird w3-container">
-      <h1 class="w3-text-teal">Reglas de publicación</h1>
-      <p>Las reglas de port forwarding permiten redirigir el tráfico entrante desde un puerto específico en una dirección IP (dirección pública del firewall) a otro puerto o dirección iP.
-        Se nos pide que le hagamos port forward a los servicios del equipo de servicios de internet, los servicios son DNS local, Web Server y DHCP. Estas reglas se agregan en Firewall/NAT:
-      </p>
-      <h2 class="w3-text-blue-grey">Alias</h2>
-      <p>Se agrega el siguiente alias de puertos</p>
-      <ul>
-        <li>Services udp: Este contiene el puerto 53 de DNS y el 67 y 68 de DHCP </li>
-      </ul>
-      <h2 class="w3-text-blue-grey">Reglas</h2>
-        <ul>
-            <li>
-                La interfaz seleccionada es WAN ya que es para el tráfico entrante, el protocolo TCP, la dirección fuente es any (*) los puertos fuente son any (*), la dirección de destino es self osea el firewall, los puertos de destino son los del alias Internet tcp, la IP NAT es la del servicio del equipo de SI 10.21.1.36 y los puertos de NAT son los mismos del alias de Internet tcp
-            </li>
-            <li>
-                La interfaz seleccionada es WAN ya que es para el tráfico entrante, el protocolo UDP, la dirección fuente es any (*) los puertos fuente son any (*), la dirección de destino es self osea el firewall, los puertos de destino son los del alias Services udp, la IP NAT es la del servicio del equipo de SI 10.21.1.36 y los puertos de NAT son los mismos del alias de Services udp
-            </li>
-        </ul>
-        <h4 class="w3-text-red">Pruebas</h4>
-        <p>Si se entra desde un browser en una computadora fuera de la red local y se busca la IP del firewall 158.122.90.2, vemos que en vez de mostrarnos pfsense, correctamente nos redirecciona al servidor hosteado en 10.21.1.36</p>
+  <!-- Sidebar -->
+  <nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar">
+    <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
+      <i class="fa fa-remove"></i>
+    </a>
+    <h4 class="w3-bar-item"><b>Tabla de contenidos</b></h4>
+    <p class="w3-bar-item">» Máquinas virtuales y configuraciones</p>
+    <p class="w3-bar-item">» Reglas inbound and outbound DO</p>
+    <p class="w3-bar-item">» Reglas LAN OPNsense</p>
+    <p class="w3-bar-item">» Reglas de publicación</p>
+    <p class="w3-bar-item">» Reglas WAN OPNsense</p>
+    <p class="w3-bar-item">» Honeypots</p>
+  </nav>
 
+  <!-- Overlay effect when opening sidebar on small screens -->
+  <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+  <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+  <div class="w3-main" style="margin-left:250px">
+
+    <div class="w3-row w3-padding-64">
+      <div class="w3-threethird w3-container">
+        <h1 class="w3-text-teal">Máquinas virtuales y configuraciones</h1>
+          <p>
+              En la siguiente sección se dará una breve descripción sobre como se configuro cada una de las maquinas virtuales dentro de la red derecha.
+          </p>
+          <h2 class="w3-text-blue-grey">Firewall</h2>
+          <p>
+              Se siguen las instrucciones de instalación en vbox que se vieron en la práctica.
+              Configuración de Network en vbox:
+              <ul>
+                  <li>Adaptador 1 WAN: Se selecciona la opción de bridged adapter para poder seleccionar la VLAN, se selecciona la VLAN 201 como se muestra en la documentación dada. El tipo de adaptador es el de 1000 MT Server como en la práctica</li>
+                  <li>Adaptador 2 LAN: Primero se habilita el uso de este adaptador. Y se hace la misma configuración que en el adaptador 1 pero ahora se selecciona la VLAN30</li>
+              </ul>
+              Una vez iniciada y configurada la máquina virtual como en las instrucciones de la práctica se procede la dirección IP correspondiente a la interfaz LAN, donde se usa la IP 10.22.1.2/24. No se definen IPv6 ni gateways, y no se activa DHCP. Ademas, se selecciona http como protocolo de acceso para la consola web.
+          </p>
+          <ol>
+            <li>Descargar el instalador de Mozilla para windows (32 bits) desde windows 10.</li>
+            <li>Arrastrarlo hacia el escritorio de windows 7.</li>
+            <li>Seguir el proceso de instalación por defecto.</li>
+          </ol>
+          <p>Una vez que se configura la máquina de Windows7, es necesario instalar Mozilla Firefox debido a que OPNsense tiene un bug en chrome que impide que se muestren los dropdowns. Para ello, hacer lo siguiente:</p>
+          <p>Finalmente, podemos continuar con la configuración inicial que se realiza en la consola web de opnSense:</p>
+          <ol>
+              <li>Ingresar en el browser a 10.22.1.2</li>
+              <li>Iniciamos sesión y cambiamos la contraseña</li>
+              <li>Comenzamos por agregar una dirección pública, en este caso es 158.122.66.2/22</li>
+              <li>Agregamos el gateway, en este caso es 158.122.64.4</li>
+              <li>Dentro de System/General Setup cambiamos el hostname</li>
+              <li>Ahi mismo agregamos los siguientes tres DNS servers 4.2.2.2, 9.9.9.9, 1.1.1.1</li>
+              <li>Localization/Timezone: America/Tijuana</li>
+          </ol>
+          <p>El firewall esta listo para agregarle reglas especificadas en el documento del proyecto final</p>
+          <h2 class="w3-text-blue-grey">Debian</h2>
+          <p>
+              Para esta máquina primero hacemos las instrucciones dadas en la práctica no.2, donde se hace la configuración inicial y las instalaciones especificadas hasta la utilería net-tools. A partir de esto, se realiza las siguientes configuraciones para nuestro Debian sea parte de nuestra red derecha y utilice al firewall como gateway.
+              <ul>
+                  <li>Adaptador de red: Se cambia de NAT a bridged adapter, y se selecciona en adapter el correspondiente a la VLAN201 </li>
+                  <li>Archivo /etc/network/interfaces: Se ingresa a la máquina virtual al archivo de /etc/network/interfaces, la ip de esta máquina será 10.22.1.60. Se deja la siguiente configuración</li>
+                  <ul>
+                      <li>source /etc/network/interfaces.d/*</li>
+                      <li>auto lo enp0s3</li>
+                      <li>iface lo inet loopback</li>
+                      <li> allow-hotplug enp0s3</li>
+                      <li>iface enp0s3 inet static</li>
+                      <li> address 10.22.1.60/24</li>
+                      <li>gateway 10.22.1.2</li>
+                      <li>dns-nameservers 10.22.1.2</li>
+                  </ul>
+              </ul>
+              <h4 class="w3-text-dark-gray">Servidor nginx</h4>
+              <p>Para dar de alta nuestra máquina para el hosteo de un servidor de nginx se siguieron los siguientes pasos (como descritos en la práctica no. 9)</p>
+              <ul>
+                  <li>Instalar bind9 -> apt install bind9 dnsutils</li>
+                  <li>Instalar nginx -> apt-get install -y nginx</li>
+                  <li>Se genera el respaldo del archivo nginx.conf</li>
+                  <li>Se prueba que ahora en el browser al buscar http://10.22.1.60 se muestre el index inicial de nginx </li>
+                  <li>Para modificar los contenidos del index, subiremos los contenidos de esta página a un repositorio de github, clonaremos el repositorio en nuestro debian y cambiaremos los contenidos del index.html</li>
+              </ul>
+          </p>
+          <h2 class="w3-text-blue-grey">Windows7</h2>
+          <p>Hacemos las instalaciones iniciales mencionadas en la práctica no.2, pero en el adaptardor de red se selecciona el VLAN201, para hacer que nuestra máquina use como gateway el firewall hicimos las siguientes configuraciones dentro de las propiedades de Internet Protocol Version 4:</p>
+          <ul>
+              <li>Se selecciona Use the following IP address</li>
+              <li>IP address: 10.22.1.61</li>
+              <li>Subnet mask: 255.255.255.0</li>
+              <li>Default gateway: 10.22.1.2</li>
+              <li>Seleccionar Use the following DNS server addresses</li>
+              <li>Preferred DNS server: 10.22.1.2</li>
+          </ul>
+          Ahora podemos usar esta máquina para acceder a la consola gráfica de OPNsense
+          <h2 class="w3-text-blue-grey">Honeypot</h2>
+          <p>Se configura igual que el Debian, sin embargo no se le agrega el servidor</p>
       </div>
-  </div>
-  <div class="w3-row w3-padding-64">
-    <div class="w3-threethird w3-container">
-      <h1 class="w3-text-teal"> Reglas WAN pfSense</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum
-        dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      </div>
-  </div>
-  <div class="w3-row w3-padding-64">
-    <div class="w3-threethird w3-container">
-      <h1 class="w3-text-teal">Honeypots</h1>
-      <p>
-          Para el honeypot del lado derecho tenemos una MV de Debian 11, configurada con la ip 10.21.1.58, en la que correrán los siguientes servicios:
-      </p>
-        <ul>
-            <li>
-                SSH honeypot: Se cambió el puerto para SSH del 22(por defecto) al 69, y se configuró un servicio que escucha en el puerto 22 para que cuando un atacante se intente conectar por SSH al honeypot usando el puerto por defecto (22), se va a registrar su intento, y guardar sus credenciales de ingreso. (nombre de usuario y contraseña utilizados).
-                Estos datos serán visibles en el archivo /var/log/ssh-honeypot.log.
-            </li>
-            <li>
-                TBD service
-            </li>
-        </ul>
-      </div>
-  </div>
-
-
-
-
-  <footer id="myFooter">
-    <div class="w3-container w3-theme-l2 w3-padding-32">
-      <h1>Patas</h1>
     </div>
 
-  </footer>
+    <div class="w3-row w3-padding-64">
+      <div class="w3-threethird w3-container">
+        <h1 class="w3-text-teal">Reglas inbound and outbound DO</h1>
+        <p>Un firewall en Digital Ocean puede ser creado desde https://www.digitalocean.com/, una vez loggeado con la cuenta donde esta el droplet a utilizar
+          se le da clic al botón verde de Create y después a Cloud Firewalls, ahi dentro podemos configurar el nombre, inbound rules, outbound rules y a los droplets que se le aplicarán las reglas.
+        </p>
+        <h2 class="w3-text-blue-grey">Inbound</h2>
+        <p>
+          Las reglas inbound o de entrada se refiere a aquellas que controlan y determinan que tipo de tráfico se permite ingresar a la red desde fuentes externas.
+          La instrucción es crear reglas para los servicios privados y públicos del equipo de Servicios Internet.
+        </p>
+        <h4 class="w3-text-dark-gray">Servicios públicos</h4>
+        <p>Para los servicios públicos se configuran las siguientes reglas para los servicios DO del equipo de servicios de internet, las reglas de DO, tienen 4 configuraciones, tipo, protocolo, rango de puertos y source IP </p>
+        <ul>
+          <li>DNS Primario: Type-DNS UDP, Protocol-UDP, Port Range-53, Sources-158.122.64.9 </li>
+          <li>DNS: Type-DNS UDP, Protocol-UDP, Port Range-53, Sources-147.182.135.3 </li>
+          <li>FTP: Type-Custom, Protocol-TCP, Port Range-20-21, Sources-147.182.135.3</li>
+          <li>Correo: Type-Custom, Protocol-TCP, Port Range-25, Sources-147.182.135.3</li>
+          <li>Web Server HTTP: Type-HTTP, Protocol-TCP, Port Range-80, Sources-147.182.135.3</li>
+          <li>Web Server HTTPS: Type-HTTPS, Protocol-TCP, Port Range-443, Sources-147.182.135.3</li>
+          <li>SSH: Type-SSH, Protocol-TCP, Port Range-22, Sources-All </li>
+        </ul>
+        <h4 class="w3-text-red">Pruebas</h4>
+        <p> TBD</p>
+        <h2 class="w3-text-blue-grey">Outbound</h2>
+        <p>Las reglas outbound o de salida son encargadas de controlar el tráfico de red saliente desde un dispositivo de la red (en este caso un droplet) hacia destinos externos.
+          Las siguientes reglas fueron configuradas en el firewall de DigitalOcean:</p>
+          <ul>
+              <li>ICMP: Type-ICMP, Protocol-ICMP, Port Range-, Sources-All </li>
+              <li>HTTP: Type-HTTP, Protocol-TCP, Port Range-80, Sources-All </li>
+              <li>HTTPS: Type-HTTPS, Protocol-TCP, Port Range-443, Sources-All  </li>
+              <li>DNS: Type-DNS UDP, Protocol-UDP, Port Range-53, Sources-All  </li>
+              <li>NTP: Type-Custom, Protocol-UDP, Port Range-123, Sources-All  </li>
+          </ul>
+          <h4 class="w3-text-red">Pruebas</h4>
+          <p>Se hicieron las siguientes pruebas desde dentro del droplet para comprobar el funcionamiento de las reglas</p>
+          <ul>
+              <li>ICMP: ping hacia alguna ip conocida</li>
+              <li>HTTP: curl hacia un sitio que use HTTP</li>
+              <li>HTTPS: curl hacia un sitio que use HTTPS</li>
+              <li>DNS: dig a google.com</li>
+              <li>NTP: ntpq -p</li>
+          </ul>
+        </div>
+    </div>
+    <div class="w3-row w3-padding-64">
+      <div class="w3-threethird w3-container">
+        <h1 class="w3-text-teal">Reglas LAN OPNsense</h1>
+        <p>
+          Las reglas de LAN hacen uso de 3 diferentes aliases de puertos que se mencionaran a continuación
+        </p>
+        <h2 class="w3-text-blue-grey">Aliases</h2>
+        <ul>
+          <li>Internet tcp: Los puertos declarados en este son los correspondientes a HTTP y HTTPS, es decir, 80 y 443</li>
+          <li>Internet udp: Los puertos declarados en este son los correspondientes a DCP y NTP, es decir, 53 y 123</li>
+          <li>Monitoreo: Los puertos son aquellos que necesita el equipo de monitoreo para SNMP (121 Y 122) y el de Zabbix Agent (10050) </li>
+        </ul>
+        <h2 class="w3-text-blue-grey">Rules</h2>
+        <p>Las reglas creadas estan en el siguiente orden:</p>
+        <ul>
+          <li>Protocolo: IPv4 ICMP - Source: * - Port: * - Destination: * - Port: * - Gateway: *</li>
+          <li>Protocolo: IPv4 TCP - Source: LAN net - Port: * - Destination: * - Port: Internet tcp - Gateway: *</li>
+          <li>Protocolo: IPv4 UDP - Source: LAN net - Port: * - Destination: * - Port: Internet udp - Gateway: *</li>
+          <li>Protocolo: IPv4 UDP - Source: * - Port: * - Destination: * - Port: Monitoreo - Gateway: *</li>
+        </ul>
+        <h4 class="w3-text-red">Pruebas</h4>
+        <p>Se hicieron las siguientes pruebas dentro de la máquina de windows7</p>
+        <ul>
+          <li>Hacer búsquedas en Mozilla Firefox</li>
+          <li>Hacer pings a otras máquinas dentro de la red y a dns como google.com</li>
+          <li>Correr el comando de ntpq -p</li>
+        </ul>
+        </div>
+    </div>
+    <div class="w3-row w3-padding-64">
+      <div class="w3-threethird w3-container">
+        <h1 class="w3-text-teal">Reglas de publicación</h1>
+        <p>Las reglas de port forwarding permiten redirigir el tráfico entrante desde un puerto específico en una dirección IP (dirección pública del firewall) a otro puerto o dirección iP.
+          Se nos pide que le hagamos port forward a los servicios del equipo de servicios de internet, los servicios son DNS local, Web Server y DHCP. Estas reglas se agregan en Firewall/NAT:
+        </p>
+        <h2 class="w3-text-blue-grey">Alias</h2>
+        <p>Se agrega el siguiente alias de puertos</p>
+        <ul>
+          <li>Services udp: Este contiene el puerto 53 de DNS y el 67 y 68 de DHCP </li>
+        </ul>
+        <h2 class="w3-text-blue-grey">Reglas</h2>
+          <ul>
+              <li>
+                  La interfaz seleccionada es WAN ya que es para el tráfico entrante, el protocolo TCP, la dirección fuente es any (*) los puertos fuente son any (*), la dirección de destino es self osea el firewall, los puertos de destino son los del alias Internet tcp, la IP NAT es la del servicio del equipo de SI 10.22.1.36 y los puertos de NAT son los mismos del alias de Internet tcp
+              </li>
+              <li>
+                  La interfaz seleccionada es WAN ya que es para el tráfico entrante, el protocolo UDP, la dirección fuente es any (*) los puertos fuente son any (*), la dirección de destino es self osea el firewall, los puertos de destino son los del alias Services udp, la IP NAT es la del servicio del equipo de SI 10.22.1.36 y los puertos de NAT son los mismos del alias de Services udp
+              </li>
+          </ul>
+          <h4 class="w3-text-red">Pruebas</h4>
+          <p>Si se entra desde un browser en una computadora fuera de la red local y se busca la IP del firewall 158.122.66.2, vemos que en vez de mostrarnos pfsense, correctamente nos redirecciona al servidor hosteado en 10.22.1.36</p>
 
-<!-- END MAIN -->
-</div>
+        </div>
+    </div>
+    <div class="w3-row w3-padding-64">
+      <div class="w3-threethird w3-container">
+        <h1 class="w3-text-teal"> Reglas WAN OPNsense</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum
+          dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+    </div>
+    <div class="w3-row w3-padding-64">
+      <div class="w3-threethird w3-container">
+        <h1 class="w3-text-teal">Honeypots</h1>
+        <p>
+            Para el honeypot del lado derecho tenemos una MV de Debian 11, configurada con la ip 10.21.1.58, en la que correrán los siguientes servicios:
+        </p>
+          <ul>
+              <li>
+                  SSH honeypot: Se cambió el puerto para SSH del 22(por defecto) al 69, y se configuró un servicio que escucha en el puerto 22 para que cuando un atacante se intente conectar por SSH al honeypot usando el puerto por defecto (22), se va a registrar su intento, y guardar sus credenciales de ingreso. (nombre de usuario y contraseña utilizados).
+                  Estos datos serán visibles en el archivo /var/log/ssh-honeypot.log.
+              </li>
+              <li>
+                  TBD service
+              </li>
+          </ul>
+        </div>
+    </div>
 
-<script>
-// Get the Sidebar
-var mySidebar = document.getElementById("mySidebar");
 
-// Get the DIV with overlay effect
-var overlayBg = document.getElementById("myOverlay");
 
-// Toggle between showing and hiding the sidebar, and add overlay effect
-function w3_open() {
-  if (mySidebar.style.display === 'block') {
-    mySidebar.style.display = 'none';
-    overlayBg.style.display = "none";
-  } else {
-    mySidebar.style.display = 'block';
-    overlayBg.style.display = "block";
-  }
-}
 
-// Close the sidebar with the close button
-function w3_close() {
-  mySidebar.style.display = "none";
-  overlayBg.style.display = "none";
-}
-</script>
+    <footer id="myFooter">
+      <div class="w3-container w3-theme-l2 w3-padding-32">
+        <h4>Equipo2 - SP</h4>
+        <ul>
+          <li>Almaraz Ángel <strong>T031753</strong></li>
+          <li>Aviles Ulises <strong>T031439</strong></li>
+          <li>Dennis David <strong>T026290</strong></li>
+          <li>Márquez Sara <strong>T026509</strong></li>
+        </ul>
+      </div>
 
-</body>
+    </footer>
+
+  <!-- END MAIN -->
+  </div>
+
+    <script>
+      // Get the Sidebar
+      var mySidebar = document.getElementById("mySidebar");
+
+      // Get the DIV with overlay effect
+      var overlayBg = document.getElementById("myOverlay");
+
+      // Toggle between showing and hiding the sidebar, and add overlay effect
+      function w3_open() {
+        if (mySidebar.style.display === 'block') {
+          mySidebar.style.display = 'none';
+          overlayBg.style.display = "none";
+        } else {
+          mySidebar.style.display = 'block';
+          overlayBg.style.display = "block";
+        }
+      }
+
+      // Close the sidebar with the close button
+      function w3_close() {
+        mySidebar.style.display = "none";
+        overlayBg.style.display = "none";
+      }
+    </script>
+
+  </body>
 </html>
