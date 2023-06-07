@@ -84,17 +84,19 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
             <ul>
                 <li>Adaptador de red: Se cambia de NAT a bridged adapter, y se selecciona en adapter el correspondiente a la VLAN101 </li>
                 <li>Archivo /etc/network/interfaces: Se ingresa a la máquina virtual al archivo de /etc/network/interfaces, la ip de esta máquina será 10.21.1.60. Se deja la siguiente configuración</li>
-                <ul>
-                    <li>source /etc/network/interfaces.d/*</li>
-                    <li>auto lo enp0s3</li>
-                    <li>iface lo inet loopback</li>
-                    <li> allow-hotplug enp0s3</li>
-                    <li>iface enp0s3 inet static</li>
-                    <li> address 10.21.1.60/24</li>
-                    <li>gateway 10.21.1.2</li>
-                    <li>dns-nameservers 10.21.1.2</li>
-                </ul>
             </ul>
+            <pre>
+              <code>
+                source /etc/network/interfaces.d/*
+                auto lo enp0s3
+                iface lo inet loopback
+                allow-hotplug enp0s3
+                iface enp0s3 inet static
+                address 10.21.1.60/24
+                gateway 10.21.1.2
+                dns-nameservers 10.21.1.2
+              </code>
+            </pre>
             <h4 class="w3-text-dark-gray">Servidor nginx</h4>
             <p>Para dar de alta nuestra máquina para el hosteo de un servidor de nginx se siguieron los siguientes pasos (como descritos en la práctica no. 9)</p>
             <ul>
@@ -115,6 +117,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
             <li>Seleccionar Use the following DNS server addresses</li>
             <li>Preferred DNS server: 10.21.1.2</li>
         </ul>
+       
         Ahora podemos usar esta máquina para acceder a la consola gráfica de pfsense
         <h2 class="w3-text-blue-grey">Honeypot</h2>
           <p> Para el honeypot del lado izquierdo tenemos una MV de Debian 11, configurada de manera igual a la otra instancia de Debian, pero con la ip 10.21.1.58, en la que correrán los siguientes servicios:</p>
