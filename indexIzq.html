@@ -117,7 +117,27 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
         </ul>
         Ahora podemos usar esta máquina para acceder a la consola gráfica de pfsense
         <h2 class="w3-text-blue-grey">Honeypot</h2>
-        <p>Se configura igual que el Debian, sin embargo no se le agrega el servidor</p>
+          <p> Para el honeypot del lado derecho tenemos una MV de Debian 11, configurada de manera igual a la otra instancia de Debian, pero con la ip 10.21.1.58, en la que correrán los siguientes servicios:</p>
+        <ul>
+            <li>
+                SSH honeypot: Port 22
+                <ul>
+                    <li>Instalar dependencias: apt install libssh-dev libjson-c-dev libpcap-dev libssl-dev</li>
+                    <li>Copiar el repositorio de github: git clone https://github.com/droberson/ssh-honeypot</li>
+                    <li>Compilar el proyecto: make</li>
+                    <li>generar llaves: ssh-keygen -t rsa -f ./ssh-honeypot.rsa</li>
+                    <li>Correr el proyecto: bin/ssh-honeypot -r ./ssh-honeypot.rsa</li>
+                    <li>Crear un servicio para el proyecto: systemctl enable --now ssh-honeypot, con esto, el servicio del hp estará corriendo en el background escuchando al puerto 22</li>
+                    <li>Se cambió el puerto para SSH del 22(por defecto) al 69, y se configuró un servicio que escucha en el puerto 22 para que cuando un atacante se intente conectar por SSH al honeypot usando el puerto por defecto (22), se va a registrar su intento, y guardar sus credenciales de ingreso. (nombre de usuario y contraseña utilizados).
+                    </li>
+                    <li>Los datos de intentos de ingreso serán visibles en el archivo /var/log/ssh-honeypot.log.</li>
+                </ul>
+            </li>
+            <li>
+                HTTP server: Port 80
+            </li>
+        </ul>
+        <img src="img/hphttp.png" style="width: 90%" alt="">
     </div>
   </div>
 
