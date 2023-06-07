@@ -54,17 +54,17 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
     <div class="w3-threethird w3-container">
       <h1 class="w3-text-teal">Máquinas virtuales y configuraciones</h1>
         <p>
-            En la siguiente sección se dará una breve descripción sobre como se configuro cada una de las maquinas virtuales dentro de la red izquierda. 
+            En la siguiente sección se dará una breve descripción sobre como se configuro cada una de las maquinas virtuales dentro de la red izquierda.
         </p>
         <h2 class="w3-text-blue-grey">Firewall</h2>
         <p>
-            Se siguen las instrucciones de instalación en vbox que se vieron en la práctica. 
+            Se siguen las instrucciones de instalación en vbox que se vieron en la práctica.
             Configuración de Network en vbox:
             <ul>
                 <li>Adaptador 1 WAN: Se selecciona la opción de bridged adapter para poder seleccionar la VLAN, se selecciona la VLAN 101 como se muestra en la documentación dada. El tipo de adaptador es el de 1000 MT Server como en la práctica</li>
                 <li>Adaptador 2 LAN: Primero se habilita el uso de este adaptador. Y se hace la misma configuración que en el adaptador 1 pero ahora se selecciona la VLAN40</li>
             </ul>
-            Una vez iniciada y configurada la máquina virtual como en las instrucciones de la práctica se procede la dirección IP correspondiente a la interfaz LAN, donde se usa la IP 10.21.1.2/24. No se definen IPv6 ni gateways, y no se activa DHCP. Ademas, se selecciona http como protocolo de acceso para la consola web. 
+            Una vez iniciada y configurada la máquina virtual como en las instrucciones de la práctica se procede la dirección IP correspondiente a la interfaz LAN, donde se usa la IP 10.21.1.2/24. No se definen IPv6 ni gateways, y no se activa DHCP. Ademas, se selecciona http como protocolo de acceso para la consola web.
         </p>
         <p>Una vez que se configura la máquina de Windows7, podemos continuar con la configuración inicial que se realiza en la consola web de pfSense:</p>
         <ul>
@@ -129,8 +129,8 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
       </p>
       <h2 class="w3-text-blue-grey">Inbound</h2>
       <p>
-        Las reglas inbound o de entrada se refiere a aquellas que controlan y determinan que tipo de tráfico se permite ingresar a la red desde fuentes externas. 
-        La instrucción es crear reglas para los servicios privados y públicos del equipo de Servicios Internet. 
+        Las reglas inbound o de entrada se refiere a aquellas que controlan y determinan que tipo de tráfico se permite ingresar a la red desde fuentes externas.
+        La instrucción es crear reglas para los servicios privados y públicos del equipo de Servicios Internet.
       </p>
       <h4 class="w3-text-dark-gray">Servicios públicos</h4>
       <p>Para los servicios públicos se configuran las siguientes reglas para los servicios DO del equipo de servicios de internet, las reglas de DO, tienen 4 configuraciones, tipo, protocolo, rango de puertos y source IP </p>
@@ -230,8 +230,18 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
   <div class="w3-row w3-padding-64">
     <div class="w3-threethird w3-container">
       <h1 class="w3-text-teal">Honeypots</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum
-        dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <p>
+          Para el honeypot del lado derecho tenemos una MV de Debian 11, configurada con la ip 10.21.1.58, en la que correrán los siguientes servicios:
+      </p>
+        <ul>
+            <li>
+                SSH honeypot: Se cambió el puerto para SSH del 22(por defecto) al 69, y se configuró un servicio que escucha en el puerto 22 para que cuando un atacante se intente conectar por SSH al honeypot usando el puerto por defecto (22), se va a registrar su intento, y guardar sus credenciales de ingreso. (nombre de usuario y contraseña utilizados).
+                Estos datos serán visibles en el archivo /var/log/ssh-honeypot.log.
+            </li>
+            <li>
+                TBD service
+            </li>
+        </ul>
       </div>
   </div>
 
