@@ -277,6 +277,49 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
   </div>
   <div class="w3-row w3-padding-64">
     <div class="w3-threethird w3-container">
+      <h1 class="w3-text-teal"> Reglas WAN OPNsense</h1>
+        <p>Establecimos reglas para nuestro servicio de Web Proxy. El proxy hace de intermediario en las peticiones de recursos que realiza un cliente a otro servidor.</p>
+        <h2 class="w3-text-blue-grey">Reglas</h2>
+          <ul>
+              <li>
+                  Restricción de acceso a redes sociales.
+              </li>
+              <li>
+                  Restricción de acceso a pornografía.
+              </li>
+              <li>
+                  Restricción de acceso a juegos y a sitios de hacking.
+              </li>
+              <li>
+                  Restricción de acceso a archivos de audio y video.
+              </li>
+              <li>
+                  Restricción de acceso a archivos ejecutables, imágenes de CD/DVDs.
+              </li>
+              <li>
+                  Restricción de acceso a archivos comprimidos.
+              </li>
+              <li>
+                  Activación de Caché para la optimización del ancho de banda.
+              </li>
+          </ul>
+          <h2 class="w3-text-blue-grey">Pasos</h2>
+          <p>Instalar Squid Proxy Server y SquidGuard Proxy Filter: Navegar a System -> Packet Manager y en Available Packages buscamos Squid y lo instalamos, una vez instalado, buscamos SquidGuard y lo instalamos.</p>
+          <p>Activar proxy de Squid: Navegamos a Services -> Squid Proxy Server y activamos Squid Proxy y guardamos en el botón Save.</p>
+          <p>Crear certificado de autoridad e instalarlo: Navegar a System -> Cert. Manager y creamos un certificado dando clic en "+ Add", colocamos un nombre descriptivo para nuestro certificado, en Method seleccionamos "Create an internal Certificate Authority" y rellenamos datos como país, ciudad, etc. Colocamos un nombre para nuestro certificado y damos clic en "Save". Exportamos nuestro certificado dando clic en "export CA" y procedemos a instalarlo en nuestra máquina virtual de Windows 7 dando clic derecho al archivo y clic a "Install Certificate", abrimos el archivo, seleccionamos "Local Machine" damos next, damos clic en "Place all certificates in the following store" damos clic en "Browse" y seleccionamos "Trusted Root Certification Authorities" pulsamos Ok, next y Finish. Finalmente, navegar a Services -> Squid Proxy Server y donde dice "CA" seleccionamos nuestro certificado creado y aplicamos cambios.</p>
+          <p>Activar Transparent Proxy y SSL: Navegamos a Services -> Squid Proxy Server y activamos Transparent HTTP Proxy y HTTPS/SSL Interception y guardamos en el botón Save. </p>
+          <p>Activar proxy de SquidGuard: Navegamos a Services -> SquidGuard Proxy Filter y activamos SquidGuard y damos clic en el botón Apply.</p>
+          <p>Añadir Blacklist: Navegamos a Services -> SquidGuard Proxy Filter y donde dice Blacklist URL colocamos un URL donde se encuentra un archivo comprimido con links de varias categorias de servicios en la web y damos clic en Save. Nos vamos a la pestaña de Blacklist y daremos clic a Download. Una vez instalado, vamos a la pestaña de Common ACL y abrimos Target Rules List dando clic en "+" donde se nos desplegara un menú con todas las categorias de servicios en la web. En default access cambiamos a "allow" y a todas las categorias que queramos bloquear el acceso cambiamos a "deny", presionamos Save una vez terminado. Y en la pestaña General Settings presionamos Apply.</p>
+          <p>Añadir restricción a archivos: Navegar a Services -> SquidGuard Proxy Filter y en la pestaña de Target Categories hacemos clic en "+ Add", colocamos un nombre para nuestro target y en el cuadro de regular expression vamos a bloquear las terminaciones de los archivos escribiendo el siguiente ejemplo para bloquear mp3: "\.mp3$" y damos Save. Por último, vamos a la pestaña de Common ACL y en Target Rules List vamos a visualizar nuestro target recien creado y seleccionamos deny.
+          </p>
+          <p>Activar caché: Viene activado por default, para comprobar, navegar a Services -> Squid Proxy Server y en la pestaña Local Cache lo podremos visualizar. </p>
+          <h4 class="w3-text-red">Pruebas</h4>
+          <p>Entramos al navegador y buscamos páginas de redes sociales, juegos, sitios de hacking, etc y confirmamos que están siendo bloqueados por pfSense.</p>
+          <p>Entramos al navegador y probamos un URL con terminación en archivo ejecutable (EJEMPLO: google.com/archivo.mp3) y confirmamos que están siendo bloquedaos por pfSense.</p>
+      </div>
+  </div>
+ <div class="w3-row w3-padding-64">
+    <div class="w3-threethird w3-container">
       <h1 class="w3-text-teal"> Reglas WAN pfSense</h1>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum
         dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -322,7 +365,6 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
             </ul>
         </ul>
       </div>
-  </div>
 
 
 
