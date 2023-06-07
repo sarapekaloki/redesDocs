@@ -325,7 +325,11 @@ mynetworks = 127.0.0.0/8
                   <li>Podrá utilizar cualquier nombre de usuario y contraseña, ya que el servidor honeypot no autentica las credenciales.</li>
                   <li>Una vez conectado, puede utilizar comandos FTP como ls, get, put, etc., para interactuar con el servidor honeypot FTP.</li>
                     <li>El atacante no sabe que es un servicio dummy, y el registro de su conexión está guardado en /var/log/vsftpd.log</li>
-
+                  <li> ##Prueba
+                      <pre>
+                        <img src="img/ftphp.png" style="width: 70%" alt="">
+                      </pre>
+                  </li>
               </ul>
               <li>
                   SMTP Server:
@@ -334,7 +338,11 @@ mynetworks = 127.0.0.0/8
                   <li>Del lado del atacante, vamos a utilizar nuestra instancia de Debian para simular a un malhechor dentro de nuestra red, quien va a intentar conectarse usando "telnet 10.22.1.59"</li>
                   <li>Esto abrirá una conexión Telnet al servidor honeypot SMTP en la dirección IP 10.22.1.59 en el puerto 25 (puerto SMTP predeterminado).</li>
                     <li>El atacante no sabe que es un servicio dummy, y el registro de su conexión está guardado en /var/log/mail.log</li>
-
+<!--                  <li> ##Prueba-->
+<!--                      <pre>-->
+<!--                        <img src="img/hphttp.png" style="width: 70%" alt="">-->
+<!--                      </pre>-->
+<!--                  </li>-->
               </ul>
           </ul>
         </div>
