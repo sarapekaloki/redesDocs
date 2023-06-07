@@ -227,9 +227,42 @@
     <div class="w3-row w3-padding-64">
       <div class="w3-threethird w3-container">
         <h1 class="w3-text-teal"> Reglas WAN OPNsense</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum
-          dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        </div>
+        <p>Establecimos reglas para nuestro servicio de Web Proxy. El proxy hace de intermediario en las peticiones de recursos que realiza un cliente a otro servidor.</p>
+        <h2 class="w3-text-blue-grey">Reglas</h2>
+          <ul>
+              <li>
+                  Restricción de acceso a redes sociales.
+              </li>
+              <li>
+                  Restricción de acceso a pornografía.
+              </li>
+              <li>
+                  Restricción de acceso a juegos y a sitios de hacking.
+              </li>
+              <li>
+                  Restricción de acceso a archivos de audio y video.
+              </li>
+              <li>
+                  Restricción de acceso a archivos ejecutables, imágenes de CD/DVDs.
+              </li>
+              <li>
+                  Restricción de acceso a archivos comprimidos.
+              </li>
+              <li>
+                  Activación de Caché para la optimización del ancho de banda.
+              </li>
+          </ul>
+          <h2 class="w3-text-blue-grey">Pasos</h2>
+          <p>Activamos proxy: Navegar a Services -> Web Proxy -> Administration y en General Proxy Settings activamos el proxy.</p>
+          <p>Añadir Blacklist: Navegar a Services -> Web Proxy -> Administration y en Remote Access Control Lists, añadimos una regla dando clic al "+", colocamos un nombre para nuestra Blacklist, colocamos un URL donde se encuentra un archivo comprimido con links de varias categorias de servicios en la web. Guardamos y damos clic a "Download ACLs & Apply". Una vez descargado, editamos nuestra regla anteriormente añadida y seleccionamos las categorias a bloquear.</p>
+          <p>Añadir restricción a archivos: Navegar a Services -> Web Proxy -> Administration y en Forward proxy desplegamos el menú con la flechita y seleccionamos "Access Control List". En el apartado de Blacklist bloquearemos las terminaciones de los archivos escribiendo en el cuadro el siguiente ejemplo para bloquear mp3: "\.mp3$" y damos aplicar.</p>
+          <p>Añadir Transparent Proxy: Navegar a Services -> Web Proxy -> Administration y en Forward Proxy activamos Transparent HTTP proxy. Activamos SSL inspection en el mismo apartado. Damos clic en Apply.</p>
+          <p>Crear certificado de autoridad e instalarlo: Navegar a System -> Trust -> Authorities y creamos un certificado dando clic en "+ Add", colocamos un nombre descriptivo para nuestro certificado, en Method seleccionamos "Create an internal Certificate Authority" y rellenamos datos como país, ciudad, etc. Colocamos un nombre para nuestro certificado y damos clic en "Save". Exportamos nuestro certificado dando clic en "export CA cert" y procedemos a instalarlo en nuestra máquina virtual de Windows 7 dando clic derecho al archivo y clic a "Install Certificate", abrimos el archivo, seleccionamos "Local Machine" damos next, damos clic en "Place all certificates in the following store" damos clic en "Browse" y seleccionamos "Trusted Root Certification Authorities" pulsamos Ok, next y Finish. Finalmente, navegar a Services -> Web Proxy -> Administration y en Forward Proxy donde dice "CA to use" seleccionamos nuestro certificado creado y aplicamos cambios. </p>
+          <p>Activar caché: Navegar a Services -> Web Proxy -> Administration y en General Proxy Settings desplegamos el menú con la flechita y seleccionamos "Local Cache Settings" y en ese apartado activamos nuestro caché y aplicamos cambios.</p>
+          <h4 class="w3-text-red">Pruebas</h4>
+          <p>Entramos al navegador y buscamos páginas de redes sociales, juegos, sitios de hacking, etc y confirmamos que están siendo bloqueados por OPNSense.</p>
+          <p>Entramos al navegador y probamos un URL con terminación en archivo ejecutable (EJEMPLO: google.com/archivo.mp3) y confirmamos que están siendo bloquedaos por OPNSense.</p>
+      </div>
     </div>
     <div class="w3-row w3-padding-64">
       <div class="w3-threethird w3-container">
